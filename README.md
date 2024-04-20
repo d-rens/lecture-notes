@@ -1,6 +1,17 @@
 # lecture-notes
 Scripts and templates to for lecture notes in mathematics.
 
+## Usage
+Set the directory variable for figures in `main.sh`:
+```sh
+dir="$HOME/lecture-notes/assets"
+short_dir="assets"
+```
+
+Call the script within your text editor with `main.sh a` to execute all the functions.
+A xournalpp window will open with the given template and on save it's added in the `$dir` and ready to compile in LaTeX.
+
+
 ## Info
 The workflow is supposed to consist out of the following programs:
 - bash for the scripting
@@ -16,3 +27,4 @@ The workflow is supposed to consist out of the following programs:
 ## Goals
 - operatable without any resistance (hotkeys)
 - should be minimal
+
