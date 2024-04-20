@@ -11,6 +11,10 @@ short_dir="assets"
 Call the script within your text editor with `main.sh a` to execute all the functions.
 A xournalpp window will open with the given template and on save it's added in the `$dir` and ready to compile in LaTeX.
 
+To call the scripts from the folder in the lecture-notes add the path, e.g. to your .zshrc:
+```zsh
+export PATH="$HOME/lecture-notes/scripts:$PATH"
+```
 
 ## Info
 The workflow is supposed to consist out of the following programs:

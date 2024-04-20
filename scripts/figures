@@ -1,12 +1,13 @@
 #!/bin/sh
 
-name=$(dmenu -p "Input the figure name here")
 dir="$HOME/lecture-notes/assets"
-tex_dir="~/lecture-notes/assets"
+
 key="$1"
 
+cd $dir
 
 figure_code() {
+    name=$(echo "..." | dmenu -p "Input the figure name here")
     echo "Value of \$name: $name"
 
     line1="\\begin{figure}"
@@ -27,29 +28,38 @@ figure_code() {
     xdotool type --file "$temp_file"
 
     rm "$temp_file"
+    return $name
 }
 
 
 open_xournalpp () {
-    cd $dir; 
+    #cd $dir || exit 1
     if [ -f "$name.xopp" ]; then
-        cp temp.xopp $name.XXX.xopp;
-        xournalpp $name.xopp;
+        cp temp.xopp "$name.XXX.xopp"
+        xournalpp "$name.xopp"
     else 
-        cp temp.xopp $name.xopp;
-        xournalpp $name.xopp;
+        cp temp.xopp "$name.xopp"
+        xournalpp "$name.xopp"
     fi
 }
 
 
 convert () {
-    cd $dir;
-    xournalpp $name.xopp -i $name.png
+    name_full=$(ls | grep "xopp" | dmenu -p "Select figure")
+    cd $dir || exit 1
+    xournalpp "$name_full" -i "$(echo $name_full | sed 's/\.[^.]*$//').png"
+}
+
+edit () {
+    name_full=$(ls | grep "xopp" | dmenu -p "Select figure")
+    xournalpp "$dir/$name_full"
+    cd $dir || exit 1
+    xournalpp "$name_full" -i "$(echo $name_full | sed 's/\.[^.]*$//').png"
 }
 
 all() {
-    figure_code &
-    open_xournalpp &
+    figure_code
+    open_xournalpp
     convert
 }
 
@@ -57,5 +67,6 @@ case $key in
     f ) figure_code ;;
     o ) open_xournalpp ;;
     c ) convert ;;
+    e ) edit ;;
     a ) all ;;
 esac

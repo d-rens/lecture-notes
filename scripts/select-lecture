@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# to select video lectures out of a list of directories in a given directory
+# via dmenu, then opening it in mpv
+#
+
+dir=$HOME/videos
+
+course=$dir/$(ls $dir | dmenu -p "select course" -l 6)
+
+lecture=$(ls $course| dmenu -p "select video" -l 15)
+
+mpv $course/$lecture
